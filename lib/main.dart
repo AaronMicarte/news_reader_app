@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:news_reader_app/screens/news_list%20_screen.dart';
-import 'widgets.dart';
+import 'package:news_reader_app/screens/news_list.dart';
 
 void main() {
   runApp(MyApp());
@@ -27,7 +26,6 @@ class NewsMainPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: createAppBar(),
       body: NewsListScreen(),
     );
   }

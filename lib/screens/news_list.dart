@@ -3,7 +3,7 @@ import 'package:news_reader_app/database/music_database.dart';
 import 'package:news_reader_app/database/sports_database.dart';
 import 'package:news_reader_app/database/games_database.dart';
 import 'package:news_reader_app/database/technology_database.dart';
-import 'package:news_reader_app/screens/news_detail_screen.dart';
+import 'package:news_reader_app/screens/news_detail.dart';
 import 'package:news_reader_app/widgets.dart';
 
 class NewsListScreen extends StatefulWidget {
@@ -51,12 +51,12 @@ class _NewsListScreenState extends State<NewsListScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("News", style: TextStyle(fontWeight: FontWeight.w600)),
+        title: Text("News"),
         elevation: 0,
-        backgroundColor: Colors.white,
-        iconTheme: IconThemeData(color: Colors.black),
+        backgroundColor: Color(0xFF1976D2),
+        iconTheme: IconThemeData(color: Colors.white),
         titleTextStyle: TextStyle(
-            color: Colors.black, fontWeight: FontWeight.w500, fontSize: 18),
+            color: Colors.white, fontWeight: FontWeight.w500, fontSize: 18),
         actions: [
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 10, vertical: 8),
@@ -87,7 +87,7 @@ class _NewsListScreenState extends State<NewsListScreen> {
       body: GridView.builder(
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
-          childAspectRatio: .80,
+          childAspectRatio: 1,
           crossAxisSpacing: 8,
           mainAxisSpacing: 8,
         ),
@@ -105,10 +105,12 @@ class _NewsListScreenState extends State<NewsListScreen> {
               );
             },
             child: Card(
-              elevation: 3,
+              elevation: 5,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(15),
               ),
+              shadowColor: Colors.black.withOpacity(0.3),
+              color: Colors.white,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -119,7 +121,7 @@ class _NewsListScreenState extends State<NewsListScreen> {
                       news["image"]!,
                       width: double.infinity,
                       height: 120,
-                      fit: BoxFit.fitWidth,
+                      fit: BoxFit.cover,
                       errorBuilder: (context, error, stackTrace) {
                         return Container(
                           width: double.infinity,
@@ -134,7 +136,7 @@ class _NewsListScreenState extends State<NewsListScreen> {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.all(6),
+                    padding: EdgeInsets.all(8),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -142,30 +144,36 @@ class _NewsListScreenState extends State<NewsListScreen> {
                           news["title"]!,
                           style: TextStyle(
                             fontWeight: FontWeight.w600,
-                            fontSize: 13,
+                            fontSize: 16,
                             color: Colors.black87,
                           ),
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,
                         ),
+                        SizedBox(height: 2),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
                               "Source: ${news["source"]}",
                               style: TextStyle(
-                                color: Colors.blue[600],
-                                fontSize: 10,
+                                color: Color(0xFF00B8D4),
+                                fontSize: 13,
                                 fontWeight: FontWeight.w500,
                               ),
                             ),
                             IconButton(
-                              icon: Icon(
-                                bookmarkedNews.contains(news)
-                                    ? Icons.bookmark
-                                    : Icons.bookmark_border,
-                                color: Colors.blue[600],
-                                size: 18,
+                              icon: AnimatedSwitcher(
+                                duration: Duration(milliseconds: 300),
+                                child: Icon(
+                                  bookmarkedNews.contains(news)
+                                      ? Icons.bookmark
+                                      : Icons.bookmark_border,
+                                  key: ValueKey<bool>(
+                                      bookmarkedNews.contains(news)),
+                                  color: Color(0xFF00B8D4),
+                                  size: 18,
+                                ),
                               ),
                               onPressed: () => toggleBookmark(news),
                             ),

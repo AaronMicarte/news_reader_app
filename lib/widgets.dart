@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:news_reader_app/screens/news_categorized_screen.dart';
+import 'package:news_reader_app/main.dart';
+import 'package:news_reader_app/screens/news_categorized.dart';
 import 'package:news_reader_app/screens/view_bookmarks.dart';
+import 'package:news_reader_app/screens/about_us.dart';
 
 PreferredSizeWidget createAppBar() {
   return AppBar(
-    title: Text("News Reader"),
-    backgroundColor: Color(0xFF1E3A8A),
+    title: Text("News Reader", style: TextStyle(fontWeight: FontWeight.w600)),
+    backgroundColor: Color(0xFF1976D2),
+    elevation: 0,
+    iconTheme: IconThemeData(color: Colors.white),
+    titleTextStyle: TextStyle(color: Colors.white, fontSize: 20),
   );
 }
 
@@ -15,7 +20,7 @@ Widget createDrawer(
     child: ListView(
       children: [
         DrawerHeader(
-          decoration: BoxDecoration(color: Color(0xFF1E3A8A)),
+          decoration: BoxDecoration(color: Color(0xFF1976D2)),
           child: Text("News Categories",
               style: TextStyle(color: Colors.white, fontSize: 18)),
         ),
@@ -69,13 +74,25 @@ Widget createDrawer(
         ),
         Divider(),
         ListTile(
-          leading: Icon(Icons.bookmark),
-          title: Text("Bookmarks"),
+          leading: Icon(Icons.bookmark, color: Color(0xFF1976D2)),
+          title: Text("Bookmarks", style: TextStyle(color: Colors.black87)),
           onTap: () {
             Navigator.push(
               context,
               MaterialPageRoute(
                 builder: (context) => ViewBookmarks(bookmarkedNews),
+              ),
+            );
+          },
+        ),
+        Divider(),
+        ListTile(
+          title: Text("About Us", style: TextStyle(color: Colors.black87)),
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => AboutUsScreen(),
               ),
             );
           },
@@ -91,7 +108,19 @@ Widget createBottomNavigator(
     child: Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
-        IconButton(icon: Icon(Icons.home), onPressed: () {}),
+        IconButton(
+          icon: Icon(Icons.home),
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) {
+                  return NewsMainPage();
+                },
+              ),
+            );
+          },
+        ),
         IconButton(
           icon: Icon(Icons.bookmark),
           onPressed: () {
